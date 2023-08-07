@@ -1,0 +1,1 @@
+# example-of-my-autotests
