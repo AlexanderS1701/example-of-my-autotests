@@ -1,0 +1,1 @@
+TICKET_LIST = '//div[@class="mt-5"]'
