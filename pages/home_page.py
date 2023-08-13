@@ -1,5 +1,3 @@
-import time
-
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -52,11 +50,6 @@ class HomePageHelper:
         paxes_data = self.driver.find_elements(By.CSS_SELECTOR, hp.PASSENGERS_AMOUNT)
         assert class_data[0].text == pax_class, f'Класс в кнопке не соответствует {pax_class}'
         assert amount in paxes_data[0].text, f'Количесво паксов не соответствует {amount}'
-
-    def check_complex_route_button(self):
-        complex_route_button = self.driver.find_elements(By.CSS_SELECTOR, hp.COMPLEX_ROUTE_BUTTON)
-        crb_is_displayed = complex_route_button[0].is_displayed()
-        assert crb_is_displayed, 'Кнопка "complex_route_button" не отображается на странице'
 
     def check_hotel_checkbox(self):
         hotel_checkbox = self.driver.find_elements(By.CSS_SELECTOR, hp.HOTEL_CHECKBOX)
