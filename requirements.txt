@@ -1,2 +1,6 @@
 pytest
 selenium
+allure-pytest
+testit-allure-adaptor
+testit-pytest
+pytest-flake8
