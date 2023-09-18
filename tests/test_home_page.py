@@ -1,9 +1,11 @@
+import allure
 import pytest
 
 
 @pytest.mark.regression
+@allure.title('Просмотр главной страницы для нового пользователя')
+@allure.label('testcase', '6205')
 def test_main_page_first_scan(app):
-    """№6205 Просмотр главной страницы для нового пользователя"""
     app.home_page.check_header()
     app.home_page.check_placeholders()
     app.home_page.check_swap_city_button()
@@ -19,8 +21,9 @@ def test_main_page_first_scan(app):
 @pytest.mark.parametrize('dep_city , arr_city', [
     ({'code': 'NQZ', 'name': 'Аст'}, {'code': 'ALA', 'name': 'Алм'})
 ])
+@allure.title('Повторный просмотр главной страницы после ввода данных без поиска')
+@allure.label('testcase', '6206')
 def test_main_page_scan_without_search(app, dep_city, arr_city):
-    """№6206 Повторный просмотр главной страницы после ввода данных без поиска"""
     app.home_page.select_departure(dep_city['name'])
     app.home_page.select_arrival(arr_city['name'])
     app.home_page.click_date_pick_button()
@@ -36,8 +39,9 @@ def test_main_page_scan_without_search(app, dep_city, arr_city):
 @pytest.mark.parametrize('dep_city , arr_city', [
     ({'code': 'NQZ', 'name': 'Аст'}, {'code': 'ALA', 'name': 'Алм'})
 ])
+@allure.title('Просмотр главной страницы после поиска')
+@allure.label('testcase', '6207')
 def test_main_page_scan_with_search(app, dep_city, arr_city):
-    """№6207 Просмотр главной страницы после поиска"""
     app.home_page.select_departure(dep_city['name'])
     app.home_page.select_arrival(arr_city['name'])
     app.home_page.click_date_pick_button()
@@ -56,8 +60,9 @@ def test_main_page_scan_with_search(app, dep_city, arr_city):
 @pytest.mark.parametrize('dep_city , arr_city', [
     ({'code': 'NQZ', 'name': 'Аст'}, {'code': 'ALA', 'name': 'Алм'})
 ])
+@allure.title('Переключение между городами (Switch Cities)')
+@allure.label('testcase', '6211')
 def test_main_page_swap_cities(app, dep_city, arr_city):
-    """№6211 Переключение между городами (Switch Cities)"""
     app.home_page.select_departure(dep_city['name'])
     app.home_page.select_arrival(arr_city['name'])
     app.home_page.click_swap_button()
@@ -69,8 +74,9 @@ def test_main_page_swap_cities(app, dep_city, arr_city):
 @pytest.mark.parametrize('dep_city , arr_city', [
     ({'code': 'NQZ', 'name': 'Аст'}, {'code': 'ALA', 'name': 'Алм'})
 ])
+@allure.title('Ввод данных через историю поисковых запросов')
+@allure.label('testcase', '6243')
 def test_main_page_enter_search_history(app, dep_city, arr_city):
-    """№6243 Ввод данных через историю поисковых запросов"""
     app.home_page.select_departure(dep_city['name'])
     app.home_page.select_arrival(arr_city['name'])
     app.home_page.click_date_pick_button()
@@ -86,9 +92,9 @@ def test_main_page_enter_search_history(app, dep_city, arr_city):
 
 
 @pytest.mark.regression
+@allure.title('Составление сложного маршрута с более,чем 4 (максимальное значение) перелетами и их удаление')
+@allure.label('testcase', '6221')
 def test_main_page_max_4_complex_route(app):
-    """№6221, №6222 Составление сложного маршрута с более,
-    чем 4 (максимальное значение) перелетами и их удаление"""
     app.home_page.click_complex_route_button()
     app.home_page.check_remove_complex_route_button()
     app.home_page.click_complex_route_button()
@@ -106,8 +112,9 @@ def test_main_page_max_4_complex_route(app):
      {'code': 'NQZ', 'name': 'Аст'},
      {'code': 'CIT', 'name': 'Шым'})
 ])
+@allure.title('Составление сложного маршрута с последующим поиском')
+@allure.label('testcase', '6224')
 def test_main_page_search_with_complex_route(app, city_1, city_2, city_3):
-    """Составление сложного маршрута с последующим поиском"""
     app.home_page.click_complex_route_button()
     app.home_page.select_departure(city_1['name'], 0)
     app.home_page.select_arrival(city_2['name'], 0)
@@ -123,8 +130,9 @@ def test_main_page_search_with_complex_route(app, city_1, city_2, city_3):
 
 
 @pytest.mark.regression
+@allure.title('Просмотр отображения элементов окна для выбора класса и количества пассажиров')
+@allure.label('testcase', '6225')
 def test_main_page_elements_display_in_the_passenger_input_window(app):
-    """Просмотр отображения элементов окна для выбора класса и количества пассажиров"""
     app.home_page.click_passengers_data_input()
     app.home_page.click_young_pax_btn()
     app.home_page.click_default_pax_btn()
@@ -136,8 +144,9 @@ def test_main_page_elements_display_in_the_passenger_input_window(app):
 @pytest.mark.parametrize('pax', [
     {'adult_id': 0, 'child_id': 1, 'infant_id': 2}
 ])
+@allure.title('Проверка ограничений на добавление пассажиров (максимум 9, минимум 1)')
+@allure.label('testcase', '6226')
 def test_main_page_limit_of_amount_passengers(app, pax):
-    """Проверка ограничений на добавление пассажиров (максимум 9, минимум 1)"""
     app.home_page.click_passengers_data_input()
     app.home_page.check_limits_of_amount_passengers(list(pax.values()), disabled='-')
     app.home_page.change_passengers_amount(pax['adult_id'], change='+', amount=9)
@@ -157,8 +166,9 @@ def test_main_page_limit_of_amount_passengers(app, pax):
 @pytest.mark.parametrize('pax', [
     {'adult_id': 0, 'child_id': 1, 'infant_id': 2}
 ])
+@allure.title('Проверка обязательности взрослого пассажира на каждого младенца')
+@allure.label('testcase', '6227')
 def test_main_page_min_one_adult_for_one_infant(app, pax):
-    """Проверка обязательности взрослого пассажира на каждого младенца"""
     app.home_page.click_passengers_data_input()
     app.home_page.change_passengers_amount(pax['adult_id'], change='+', amount=2)
     app.home_page.change_passengers_amount(pax['infant_id'], change='+', amount=3)
@@ -172,8 +182,9 @@ def test_main_page_min_one_adult_for_one_infant(app, pax):
 @pytest.mark.parametrize('pax', [
     {'adult_id': 0, 'child_id': 1, 'infant_id': 2}
 ])
+@allure.title('Проверка отображения изменения пассажиров в плейсхолдере кнопки')
+@allure.label('testcase', '6229')
 def test_main_page_text_content_in_passengers_button(app, pax):
-    """Проверка отображения изменения пассажиров в плейсхолдере кнопки"""
     app.home_page.click_passengers_data_input()
     app.home_page.choose_pax_class('business')
     app.home_page.change_passengers_amount(pax['adult_id'], change='+', amount=2)
@@ -185,8 +196,9 @@ def test_main_page_text_content_in_passengers_button(app, pax):
 
 
 @pytest.mark.regression
+@allure.title('Проверка работы валидации дат в календаре')
+@allure.label('testcase', '6236')
 def test_main_page_scan_to_calendar(app):
-    """Проверка работы валидации дат в календаре"""
     app.home_page.click_date_pick_button()
     app.home_page.check_upper_bound_dates()
     app.home_page.check_lower_bound_dates()
